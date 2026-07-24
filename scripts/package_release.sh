@@ -32,12 +32,16 @@ test "$actual_arxiv_files" = "$expected_arxiv_files" || {
 test -f dist/elsevier.bbl || { echo "Missing required Elsevier package input: dist/elsevier.bbl" >&2; exit 1; }
 mkdir -p .elsevier-package/styles/elsevier .elsevier-package/figures
 sed 's/\\bibliography{references}/\\input{elsevier.bbl}/' paper/elsevier.tex > .elsevier-package/manuscript.tex
+cat > .elsevier-package/latexmkrc <<'LATEXMKRC'
+$ENV{TEXINPUTS} = './styles/elsevier//:./:' . ($ENV{TEXINPUTS} || '');
+$ENV{BSTINPUTS} = './styles/elsevier//:./:' . ($ENV{BSTINPUTS} || '');
+LATEXMKRC
 cp paper/content.tex paper/references.bib dist/elsevier.bbl .elsevier-package/
 cp paper/styles/elsevier/cas-dc.cls paper/styles/elsevier/cas-common.sty paper/styles/elsevier/cas-model2-names.bst .elsevier-package/styles/elsevier/
 cp paper/figures/figure_1_concentration_is_not_scaling.pdf .elsevier-package/figures/
 cp paper/figures/figure_2_exact_component_attribution.pdf .elsevier-package/figures/
-( cd .elsevier-package && zip -X -qr "$root/dist/elsevier_submission_source.zip" manuscript.tex content.tex references.bib elsevier.bbl styles figures )
-expected_elsevier_files=$'content.tex\nelsevier.bbl\nfigures/figure_1_concentration_is_not_scaling.pdf\nfigures/figure_2_exact_component_attribution.pdf\nmanuscript.tex\nreferences.bib\nstyles/elsevier/cas-common.sty\nstyles/elsevier/cas-dc.cls\nstyles/elsevier/cas-model2-names.bst'
+( cd .elsevier-package && zip -X -qr "$root/dist/elsevier_submission_source.zip" manuscript.tex content.tex references.bib elsevier.bbl latexmkrc styles figures )
+expected_elsevier_files=$'content.tex\nelsevier.bbl\nfigures/figure_1_concentration_is_not_scaling.pdf\nfigures/figure_2_exact_component_attribution.pdf\nlatexmkrc\nmanuscript.tex\nreferences.bib\nstyles/elsevier/cas-common.sty\nstyles/elsevier/cas-dc.cls\nstyles/elsevier/cas-model2-names.bst'
 actual_elsevier_files=$(zipinfo -1 dist/elsevier_submission_source.zip | LC_ALL=C sort)
 test "$actual_elsevier_files" = "$expected_elsevier_files" || {
   echo "Elsevier package contains unexpected or missing files:" >&2
@@ -58,8 +62,8 @@ unzip -q dist/arxiv_source_v1.zip -d "$validate_arxiv"
 unzip -q dist/elsevier_submission_source.zip -d "$validate_elsevier"
 (
   cd "$validate_elsevier"
-  TEXINPUTS="$PWD/styles/elsevier//:$PWD//:${TEXINPUTS:-}" pdflatex -interaction=nonstopmode -halt-on-error -file-line-error manuscript.tex
-  TEXINPUTS="$PWD/styles/elsevier//:$PWD//:${TEXINPUTS:-}" pdflatex -interaction=nonstopmode -halt-on-error -file-line-error manuscript.tex
+  latexmk -pdf -halt-on-error -file-line-error manuscript.tex
+  ! rg -n 'LaTeX Warning: (Reference|Citation) .* undefined|There were undefined references|undefined citations' manuscript.log
 )
 ( cd dist && sha256sum manuscript_arxiv_v1.pdf manuscript_elsevier.pdf arxiv_source_v1.zip elsevier_submission_source.zip > SHA256SUMS )
 {
