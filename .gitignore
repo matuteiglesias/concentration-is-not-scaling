@@ -31,3 +31,9 @@ build/
 .DS_Store
 *~
 *.swp
+
+# Generated demonstration review figures (never version binary artifacts)
+paper/figures/*.png
+artifacts/reference/variance_scaling_demo_v0_2/*.png
+*.pdf
+*.zip

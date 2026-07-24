@@ -31,3 +31,16 @@ This repository contains:
 The repository does **not** reproduce the empirical French-export
 variance-decay estimate. That remains a separate research output in the
 broader Economics of Aggregation, Scale, and Measurement programme.
+
+## Reproducibility commands
+
+```bash
+make test      # Python identity tests
+make demo      # deterministic CSV evidence and ignored review figures
+make verify    # tests plus demo
+make arxiv     # neutral wrapper PDF in dist/
+make elsevier  # CAS wrapper PDF in dist/
+make package   # PDFs, source ZIPs, clean extracted-package builds, checksums
+```
+
+The shared scientific source is `paper/content.tex`. Wrapper-specific front matter is limited to `paper/arxiv.tex` and `paper/elsevier.tex`; CAS support files live in `paper/styles/elsevier/`. Generated PNG, PDF, ZIP, and `dist/` files are deliberately ignored.

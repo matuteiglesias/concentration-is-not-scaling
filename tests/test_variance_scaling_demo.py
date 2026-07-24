@@ -4,7 +4,7 @@ import numpy as np
 import pytest
 
 from aggregation_lab import check_scaling_identity
-from research.demos.variance_scaling_identity_demo import (
+from scripts.generate_demo import (
     ATOL,
     RTOL,
     RHO,

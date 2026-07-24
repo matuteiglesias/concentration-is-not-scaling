@@ -15,7 +15,7 @@ N_VALUES = np.array([4, 8, 16, 32, 64], dtype=int)
 RHO = 0.15
 RTOL = 1e-12
 ATOL = 1e-12
-ARTIFACT_DIR = Path("research/artifacts/variance_scaling_demo_v0_2")
+ARTIFACT_DIR = Path("artifacts/reference/variance_scaling_demo_v0_2")
 
 SCENARIOS = {
     "scenario_1_iid": {
@@ -219,6 +219,7 @@ def make_figures(paths, intervals, component_intervals):
     alpha_axis.legend()
     figure.tight_layout()
     figure.savefig(ARTIFACT_DIR / "figure_1_concentration_is_not_scaling.png", dpi=180)
+    figure.savefig(ARTIFACT_DIR / "figure_1_concentration_is_not_scaling.pdf")
     plt.close(figure)
 
     figure, (heterogeneous_axis, correlated_axis) = plt.subplots(1, 2, figsize=(12.2, 4.8))
@@ -252,6 +253,7 @@ def make_figures(paths, intervals, component_intervals):
     figure.text(0.5, 0.01, f"max |direct - reconstructed| = {maximum_residual:.2e}", ha="center")
     figure.tight_layout(rect=(0, 0.05, 1, 1))
     figure.savefig(ARTIFACT_DIR / "figure_2_exact_component_attribution.png", dpi=180)
+    figure.savefig(ARTIFACT_DIR / "figure_2_exact_component_attribution.pdf")
     plt.close(figure)
 
 
@@ -309,6 +311,12 @@ def main():
     checks.to_csv(ARTIFACT_DIR / "checks.csv", index=False)
     make_figures(paths, intervals, component_intervals)
     write_readme(checks)
+    figure_dir = Path("paper/figures")
+    figure_dir.mkdir(parents=True, exist_ok=True)
+    for figure in ARTIFACT_DIR.glob("*.png"):
+        (figure_dir / figure.name).write_bytes(figure.read_bytes())
+    for figure in ARTIFACT_DIR.glob("*.pdf"):
+        (figure_dir / figure.name).write_bytes(figure.read_bytes())
 
 
 if __name__ == "__main__":

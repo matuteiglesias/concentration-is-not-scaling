@@ -1,0 +1,46 @@
+\documentclass[a4paper,fleqn]{cas-dc}
+\usepackage[authoryear,longnamesfirst]{natbib}
+\usepackage{amsmath,amssymb,amsthm,mathtools,booktabs,graphicx,xspace}
+\usepackage[protrusion=true,expansion=false]{microtype}
+\newtheorem{proposition}{Proposition}
+\newtheorem{corollary}{Corollary}
+\newtheorem{remark}{Remark}
+\input{content}
+\begin{document}
+\let\WriteBookmarks\relax
+\def\floatpagepagefraction{1}
+\def\textpagefraction{0.001}
+\shorttitle{Concentration Is Not Scaling}
+\shortauthors{M. Iglesias}
+\title[mode=title]{Concentration Is Not Scaling:
+An Exact Decomposition of Aggregate Variance Elasticities}
+\author[1,orcid=0000-0002-2634-2944]{Matías Iglesias}
+\cormark[1]
+\ead{mniglesias@dc.uba.ar}
+\credit{Conceptualization, Methodology, Formal analysis, Software, Validation, Visualization, Writing -- Original Draft, Writing -- Review \& Editing}
+\affiliation[1]{organization={Departamento de Computación, Facultad de Ciencias Exactas y Naturales, Universidad de Buenos Aires}, city={Buenos Aires}, country={Argentina}}
+\cortext[cor1]{Corresponding author}
+\hypersetup{
+  pdftitle={Concentration Is Not Scaling: An Exact Decomposition of Aggregate Variance Elasticities},
+  pdfauthor={Matías Iglesias},
+  pdfsubject={Exact decomposition of aggregate variance elasticities},
+  pdfkeywords={aggregate variance, concentration, diversification, covariance, scaling elasticity},
+  pdfcreator={Concentration Is Not Scaling Elsevier CAS build}
+}
+\SharedAbstract
+\begin{highlights}
+\item Concentration does not identify aggregate-variance scaling.
+\item Variance elasticities admit an exact finite-interval decomposition.
+\item Signed covariance enters without logarithms of component values.
+\item Equal concentration paths can imply different diversification rates.
+\item Positive covariance can contribute negatively to variance decay.
+\end{highlights}
+\begin{keywords}
+aggregate variance \sep concentration \sep diversification \sep variance decomposition \sep covariance \sep scaling elasticity
+\end{keywords}
+\nonumnote{JEL classification: C02, C10, D20.}
+\maketitle
+\SharedScientificBody
+\bibliographystyle{elsarticle-harv}
+\bibliography{references}
+\end{document}

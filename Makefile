@@ -6,7 +6,8 @@ test:
 demo:
 	PYTHONPATH=src python scripts/generate_demo.py
 
-verify: test demo
+verify:
+	bash scripts/verify.sh
 
 arxiv:
 	bash scripts/build_arxiv.sh
@@ -20,7 +21,9 @@ package:
 all: verify arxiv elsevier package
 
 clean:
-	latexmk -C paper/arxiv.tex || true
-	latexmk -C paper/elsevier.tex || true
-	rm -rf dist build .pytest_cache
+	latexmk -C -outdir=dist paper/arxiv.tex || true
+	latexmk -C -outdir=dist paper/elsevier.tex || true
+	rm -rf dist build .pytest_cache .arxiv-package .elsevier-package
 	find . -type d -name __pycache__ -prune -exec rm -rf {} +
+	find . -type f \( -name '*.pyc' -o -name '*.pyo' \) -delete
+	find paper/figures artifacts/reference/variance_scaling_demo_v0_2 -type f -name '*.png' -delete

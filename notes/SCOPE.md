@@ -37,3 +37,7 @@ The paper establishes:
 - thesis-wide rewriting.
 
 New scientific questions belong in a new paper repository.
+
+## Structural-refactor constraint
+
+Repository hygiene may change paths, wrappers, build automation, and release metadata only. It may not change scientific wording, equations, values, captions, citations, bibliography records, title, author wording, or claim boundaries.

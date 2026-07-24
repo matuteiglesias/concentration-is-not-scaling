@@ -1,101 +1,5 @@
-\documentclass[a4paper,fleqn]{cas-dc}
-
-% ------------------------------------------------------------------
-% Citation style
-% ------------------------------------------------------------------
-
-\usepackage[authoryear,longnamesfirst]{natbib}
-
-% ------------------------------------------------------------------
-% Mathematical and typographical packages
-% ------------------------------------------------------------------
-
-\usepackage{amsmath}
-\usepackage{amssymb}
-\usepackage{amsthm}
-\usepackage{mathtools}
-\usepackage{booktabs}
-\usepackage{graphicx}
-\usepackage[
-    protrusion=true,
-    expansion=false
-]{microtype}
-\usepackage{xspace}
-
-% ------------------------------------------------------------------
-% Theorem environments
-% ------------------------------------------------------------------
-
-\newtheorem{proposition}{Proposition}
-\newtheorem{corollary}{Corollary}
-\newtheorem{remark}{Remark}
-
-% ------------------------------------------------------------------
-% Document
-% ------------------------------------------------------------------
-
-\begin{document}
-
-\let\WriteBookmarks\relax
-\def\floatpagepagefraction{1}
-\def\textpagefraction{0.001}
-
-% ------------------------------------------------------------------
-% Running title and author
-% ------------------------------------------------------------------
-
-\shorttitle{Concentration Is Not Scaling}
-\shortauthors{M. Iglesias}
-
-% ------------------------------------------------------------------
-% Title
-% ------------------------------------------------------------------
-
-\title[mode=title]{
-Concentration Is Not Scaling:
-An Exact Decomposition of Aggregate Variance Elasticities
-}
-
-% ------------------------------------------------------------------
-% Author
-% ------------------------------------------------------------------
-
-\author[1]{Matías Iglesias}
-\cormark[1]
-
-\ead{mniglesias@dc.uba.ar}
-
-\credit{
-Conceptualization,
-Methodology,
-Formal analysis,
-Software,
-Validation,
-Visualization,
-Writing -- Original Draft,
-Writing -- Review \& Editing
-}
-
-% ------------------------------------------------------------------
-% Affiliation
-% ------------------------------------------------------------------
-
-\affiliation[1]{
-    organization={
-        Departamento de Computación,
-        Facultad de Ciencias Exactas y Naturales,
-        Universidad de Buenos Aires
-    },
-    city={Buenos Aires},
-    country={Argentina}
-}
-
-\cortext[cor1]{Corresponding author}
-
-% ------------------------------------------------------------------
-% Abstract
-% ------------------------------------------------------------------
-
+% Shared scientific content. Keep scientific wording in this file.
+\newcommand{\SharedAbstract}{%
 \begin{abstract}
 Granular models relate aggregate variance to the concentration of
 economic weights. This proportionality is exact only under restrictive
@@ -113,47 +17,9 @@ constructions verify the direct and reconstructed elasticities at
 floating-point precision. The result clarifies the boundary of
 concentration-based granular reasoning and supplies an accounting
 framework for micro-to-macro analyses of diversification.
-\end{abstract}
-
-% ------------------------------------------------------------------
-% Highlights
-% ------------------------------------------------------------------
-
-\begin{highlights}
-\item Concentration does not identify aggregate-variance scaling.
-\item Variance elasticities admit an exact finite-interval decomposition.
-\item Signed covariance enters without logarithms of component values.
-\item Equal concentration paths can imply different diversification rates.
-\item Positive covariance can contribute negatively to variance decay.
-\end{highlights}
-
-% ------------------------------------------------------------------
-% Keywords and classification
-% ------------------------------------------------------------------
-
-\begin{keywords}
-aggregate variance
-\sep concentration
-\sep diversification
-\sep variance decomposition
-\sep covariance
-\sep scaling elasticity
-\end{keywords}
-
-\nonumnote{
-JEL classification: C02, C10, D20.
+\end{abstract}%
 }
-
-% ------------------------------------------------------------------
-% Generate title
-% ------------------------------------------------------------------
-
-\maketitle
-
-% ------------------------------------------------------------------
-% Main text
-% ------------------------------------------------------------------
-
+\newcommand{\SharedScientificBody}{%
 \section{Introduction}
 \label{sec:introduction}
 
@@ -637,12 +503,4 @@ adversarial checking, and language revision. The author reviewed and
 verified the mathematical derivations, computational outputs,
 references, and final text, edited the resulting material as needed,
 and takes full responsibility for the content of the publication.
-
-% ------------------------------------------------------------------
-% References
-% ------------------------------------------------------------------
-
-\bibliographystyle{elsarticle-harv}
-\bibliography{references}
-
-\end{document}
+}

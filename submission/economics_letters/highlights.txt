@@ -1,0 +1,6 @@
+STATUS: OPTIONAL_PENDING_LIVE_GUIDE. Upload only if the current journal guide supports or requires highlights.
+
+Concentration does not identify aggregate-variance scaling. [59 characters]
+Variance elasticities have an exact finite-interval decomposition. [66 characters]
+Signed covariance changes enter the decomposition without logs. [63 characters]
+Equal concentration paths can imply different variance elasticities. [68 characters]

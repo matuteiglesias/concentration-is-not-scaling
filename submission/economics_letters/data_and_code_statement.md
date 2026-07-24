@@ -1,0 +1,1 @@
+No empirical data were used in this study. Deterministic computational constructions, tests, and generated verification artifacts are maintained in the associated repository. PI must confirm repository-publication status and the journal's current data/code statement requirement before submission.

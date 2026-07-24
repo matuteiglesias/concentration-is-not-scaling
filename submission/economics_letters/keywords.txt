@@ -1,0 +1,6 @@
+aggregate variance
+identification
+concentration
+diversification
+covariance
+scaling elasticity

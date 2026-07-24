@@ -94,3 +94,7 @@ Blocked:
 Next:
 Do not open:
 ```
+
+## Twin-build hygiene constraint
+
+For the paper-specific structural refactor, maintain one shared scientific source in `paper/content.tex`; wrappers may contain only mechanically required build/front-matter differences. Do not add binary assets to Git. Generated PDF, PNG, and release archives are ignored and validated locally.
