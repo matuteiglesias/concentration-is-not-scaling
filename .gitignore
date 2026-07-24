@@ -1,0 +1,33 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+
+# LaTeX
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.run.xml
+*.synctex.gz
+*.toc
+*.abs
+
+# Build and release output
+dist/
+build/
+.arxiv-package/
+.elsevier-package/
+
+# Editor and OS
+.vscode/
+.idea/
+.DS_Store
+*~
+*.swp
