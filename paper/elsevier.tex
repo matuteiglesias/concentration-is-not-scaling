@@ -9,6 +9,9 @@
 % CAS 2.4 records front-matter fields before \maketitle but does not
 % provide a frontmatter environment.  Keep the wrapper boundary explicit.
 \newenvironment{frontmatter}{}{}
+\ExplSyntaxOn
+\keys_set:nn { stm / mktitle } { nologo = true }
+\ExplSyntaxOff
 \begin{document}
 \let\WriteBookmarks\relax
 \def\floatpagepagefraction{1}
