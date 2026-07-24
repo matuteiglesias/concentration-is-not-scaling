@@ -6,15 +6,19 @@
 \newtheorem{corollary}{Corollary}
 \newtheorem{remark}{Remark}
 \input{content}
+% CAS 2.4 records front-matter fields before \maketitle but does not
+% provide a frontmatter environment.  Keep the wrapper boundary explicit.
+\newenvironment{frontmatter}{}{}
 \begin{document}
 \let\WriteBookmarks\relax
 \def\floatpagepagefraction{1}
 \def\textpagefraction{0.001}
 \shorttitle{Concentration Is Not Scaling}
 \shortauthors{M. Iglesias}
+\begin{frontmatter}
 \title[mode=title]{Concentration Is Not Scaling:
 An Exact Decomposition of Aggregate Variance Elasticities}
-\author[1,orcid=0000-0002-2634-2944]{Matías Iglesias}
+\author[1]{Matías Iglesias}[orcid=0000-0002-2634-2944]
 \cormark[1]
 \ead{mniglesias@dc.uba.ar}
 \credit{Conceptualization, Methodology, Formal analysis, Software, Validation, Visualization, Writing -- Original Draft, Writing -- Review \& Editing}
@@ -27,7 +31,9 @@ An Exact Decomposition of Aggregate Variance Elasticities}
   pdfkeywords={aggregate variance, concentration, diversification, covariance, scaling elasticity},
   pdfcreator={Concentration Is Not Scaling Elsevier CAS build}
 }
-\SharedAbstract
+\begin{abstract}
+\SharedAbstractText
+\end{abstract}
 \begin{highlights}
 \item Concentration does not identify aggregate-variance scaling.
 \item Variance elasticities admit an exact finite-interval decomposition.
@@ -39,6 +45,7 @@ An Exact Decomposition of Aggregate Variance Elasticities}
 aggregate variance \sep concentration \sep diversification \sep variance decomposition \sep covariance \sep scaling elasticity
 \end{keywords}
 \nonumnote{JEL classification: C02, C10, D20.}
+\end{frontmatter}
 \maketitle
 \SharedScientificBody
 \bibliographystyle{elsarticle-harv}
