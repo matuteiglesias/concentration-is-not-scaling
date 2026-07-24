@@ -9,6 +9,30 @@
 % CAS 2.4 records front-matter fields before \maketitle but does not
 % provide a frontmatter environment.  Keep the wrapper boundary explicit.
 \newenvironment{frontmatter}{}{}
+% CAS captures the abstract environment verbatim in \jobname.abs.  An
+% \input command in that environment is therefore not a reliable shared-source
+% adapter: it can survive as literal payload rather than supplying the prose.
+% Copy abstract.tex line-for-line into the CAS auxiliary file instead.  The
+% wrapper remains mechanical and the abstract continues to have one source.
+\newread\casabstractsource
+\newwrite\casabstractcapture
+\newcommand{\capturecasabstract}[1]{%
+  \openin\casabstractsource=#1\relax
+  \ifeof\casabstractsource
+    \PackageError{concentration-is-not-scaling}{Cannot open shared abstract #1}{}%
+  \else
+    \immediate\openout\casabstractcapture=\jobname.abs\relax
+    \begingroup
+      \endlinechar=-1
+      \loop\unless\ifeof\casabstractsource
+        \readline\casabstractsource to \casabstractline
+        \immediate\write\casabstractcapture{\casabstractline}%
+      \repeat
+    \endgroup
+    \immediate\closeout\casabstractcapture
+  \fi
+  \closein\casabstractsource
+}
 \ExplSyntaxOn
 \keys_set:nn { stm / mktitle } { nologo = true }
 \ExplSyntaxOff
@@ -34,9 +58,7 @@ An Exact Decomposition of Aggregate Variance Elasticities}
   pdfkeywords={aggregate variance, concentration, diversification, covariance, scaling elasticity},
   pdfcreator={Concentration Is Not Scaling Elsevier CAS build}
 }
-\begin{abstract}
-\input{abstract}
-\end{abstract}
+\capturecasabstract{abstract.tex}
 \begin{highlights}
 \item Concentration does not identify aggregate-variance scaling.
 \item Variance elasticities admit an exact finite-interval decomposition.
