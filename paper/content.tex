@@ -351,44 +351,33 @@ $\lim_{N\to\infty}\alpha_{\rho}(N)=0$.
     \label{fig:concentration_scaling}
 \end{figure*}
 
-On the grid shown in Figure~\ref{fig:concentration_scaling}, the
-correlated adjacent-interval variance elasticity falls from approximately
-$0.500$ over $N=4$ to $8$ to $0.113$ over $N=32$ to $64$, even though the
-concentration elasticity remains exactly one. The two economies have the
-same number of units, weights, Herfindahl index, effective number of
-firms, and entire concentration path. Yet they have different variance
-paths and limiting elasticities. The missing
-information is not a refinement of concentration: it is the
-scale-dependent variance--covariance structure of the contributions.
-This distinction also rules out a common empirical shortcut. Estimating a
-power law for $H(N)$ and interpreting its slope as the population exponent
-of aggregate variance is valid only after the micro-variance and
-covariance terms have been shown to be scale neutral. Concentration and
-aggregate-variance scaling are therefore different estimands even when
-they coincide under the independent homogeneous benchmark.
+The counterexample establishes non-identification, not merely a
+difference in variance levels. On the displayed grid, the correlated
+adjacent-interval variance elasticity falls from approximately $0.500$
+to $0.113$, while the concentration elasticity remains one. The two
+systems have the same population, weights, Herfindahl index, effective
+number of firms, and complete concentration path. What differs is the
+population-indexed variance--covariance structure.
 
-This result qualifies rather than overturns the granular mechanism. The
-presence of large firms may still make weighted idiosyncratic shocks
-quantitatively important. What does not follow is that the population
-elasticity of aggregate variance can be recovered from the firm-size
-distribution alone. The Herfindahl connection is conditional on stable
-homogeneous shock variances, independence, and a coherent population
-path. Relaxing those conditions does not merely add noise around the
-granular prediction; it changes the estimand that concentration can
-identify.
+A fitted concentration law can therefore identify aggregate-variance
+scaling only after marginal variance, dependence, and composition have
+been shown to provide a scale-neutral bridge. This qualifies rather
+than overturns the granular mechanism: unequal weights may remain
+quantitatively important, but the firm-size distribution is not by
+itself sufficient to identify the population elasticity of aggregate
+variance.
 
-\section{Deterministic analytic verification}
+\section{Diversification as a component balance}
 \label{sec:computational_verification}
 
-We verify the accounting chain on the fixed population grid
-$N\in\{4,8,16,32,64\}$ using deterministic analytic component paths.
-The construction contains no source data, sampling, or stochastic
-estimation. For every scenario and population level, the generated
-tables record concentration, component values, direct and reconstructed
-aggregate variance, adjacent-interval variance elasticities, signed
-component contributions, and scale-aware numerical checks. The exercise
-therefore tests the implementation of the identities rather than
-estimating an economic parameter.
+The independent homogeneous benchmark is a diagonal-dilution result.
+For an equal-weight average of $N$ mutually independent unit-variance
+contributions, aggregate variance falls as $1/N$. More generally, the
+observed elasticity records how every source of variance changes along
+the population path. A value below one need not represent one common
+mechanism: it may arise because diagonal components decay at different
+rates, because covariance offsets their decline, or because the
+composition of the aggregate changes with $N$.
 
 The first attribution example uses two independent positive components,
 \begin{equation}
@@ -397,12 +386,15 @@ The first attribution example uses two independent positive components,
     =
     N^{-0.9}+0.4N^{-0.3}.
 \end{equation}
-Their component elasticities differ, so their contributions to the
-aggregate variance elasticity change with population scale. The
-fast-decaying component supplies most of the initial variance decline,
-but its contribution falls as the slower component becomes dominant.
-Across the displayed intervals, the reconstructed total variance
-elasticity consequently declines from approximately $0.582$ to $0.422$.
+This example generalizes the common-exponent inheritance case. If all
+positive components share the same elasticity and their populations
+expand proportionally, the aggregate inherits that elasticity. When
+component elasticities differ, however, no fixed population exponent
+is primitive. The aggregate elasticity changes as the components'
+variance shares change. In Figure~\ref{fig:alpha_verification}(a), the
+fast-decaying component initially supplies most of the variance decline,
+but the slow component becomes increasingly important; the aggregate
+elasticity consequently falls from approximately $0.582$ to $0.422$.
 
 The second attribution example groups the equicorrelated counterexample
 into total diagonal variance and total doubled covariance,
@@ -415,9 +407,7 @@ into total diagonal variance and total doubled covariance,
 Although $B(N)$ is positive, it rises with population size. Hence
 $B(N_1)-B(N_0)>0$ for $N_1>N_0$, and the minus sign in
 equation~\eqref{eq:component_alpha_contribution} makes its contribution
-to the variance-decay elasticity negative. The covariance channel
-therefore offsets part of the diagonal diversification contribution on
-every adjacent interval.
+to the variance-decay elasticity negative.
 
 \begin{figure*}[t]
     \centering
@@ -438,38 +428,67 @@ every adjacent interval.
     \label{fig:alpha_verification}
 \end{figure*}
 
-The current reference artifact evaluates $15$ population-level variance
-identities and $12$ adjacent-interval scaling identities. All pass the
-declared scale-aware tolerance contract. Direct and reconstructed
-variance coincide exactly in the analytic tables, and the maximum
-absolute scaling-reconstruction residual is
-$6.7\times10^{-16}$ in the reference run. Such last-digit residuals may
-vary across numerical environments; the scientific acceptance criterion
-is the stated tolerance, not reproduction of one machine's exact
-floating-point remainder. These calculations verify the implementation
-and internal consistency of the accounting chain. They do not constitute
-empirical evidence about the scaling behavior of any particular economy.
+In this equal-weight case, the local decomposition has the especially
+transparent form
+\begin{equation}
+\label{eq:diversification_balance}
+    \alpha_V(N)
+    =
+    \frac{D(N)}{V(N)}
+    -
+    \frac{N B'(N)}{V(N)}.
+\end{equation}
+The first term records diagonal variance dilution; the second records
+the signed effect of the changing covariance level. Independence gives
+$B(N)=0$ and restores $\alpha_V(N)=1$. Under equicorrelation,
+$B'(N)>0$, so covariance accumulation offsets diagonal diversification
+and pushes the aggregate elasticity toward zero.
+
+Equation~\eqref{eq:diversification_balance} gives a precise meaning to
+delayed diversification. The scaling exponent is not itself a primitive
+mechanism, nor is it a synonym for concentration. It is the net
+accounting outcome of diagonal dilution and covariance accumulation
+along the population path. Figure~\ref{fig:alpha_verification}(b)
+displays this balance: the diagonal contribution is positive, while the
+increasing positive covariance level makes a negative contribution to
+variance decay.
+
+The accompanying machine-readable artifact evaluates these identities
+on $N\in\{4,8,16,32,64\}$. Direct and reconstructed elasticities agree
+within the declared numerical tolerance; the maximum absolute residual
+in the reference run is $6.7\times10^{-16}$. The calculations verify
+the implementation of the accounting chain. Their substantive role is
+to show that heterogeneous diagonal paths and signed covariance paths
+can be attributed within one exact framework, not to provide empirical
+evidence about a particular economy.
 
 \section{Conclusion}
 \label{sec:conclusion}
 
-Concentration locates aggregate exposure; it does not generally identify
-how aggregate variance changes as the population expands. The
-Herfindahl connection requires a stable homogeneous variance structure,
-restricted covariance, and a coherent population path. We provide an
-exact finite-interval decomposition that attributes the aggregate
-variance elasticity to changes in diagonal and signed covariance
-components without logging the components themselves. Dependence can
-therefore alter diversification not only by raising aggregate variance
-but also through its own population path: a positive covariance
-component that rises with $N$ contributes negatively to variance decay.
-The result preserves the central granular insight while defining its
-boundary. The firm-size distribution can make large firms important,
-but it is not a sufficient statistic for population scaling. The
-decomposition supplies a transparent accounting contract for empirical
-micro-to-macro work, shifting the empirical task from reading an
-exponent off the size distribution to measuring how variance and
-covariance contributions change along an explicit population path.
+A concentration path describes how economic weight is distributed.
+Aggregate-variance scaling describes how the complete
+population-indexed quadratic form
+$\mathbf{w}(N)^{\mathsf T}\Sigma_{\varepsilon}(N)\mathbf{w}(N)$ changes.
+The two coincide under homogeneous, independent, scale-invariant shocks.
+Outside that model class, even the complete weight path does not
+identify aggregate variance or its elasticity.
+
+The decomposition developed here shows what replaces that
+identification. An observed scaling exponent is the net outcome of the
+population paths of all diagonal and covariance components. Common
+component elasticities produce the familiar inheritance result;
+heterogeneous elasticities generate changing contribution shares; and
+covariance may reinforce or offset diagonal diversification. The
+exponent is therefore an accounting summary of diversification, not a
+primitive property of population size.
+
+This changes the empirical question. Rather than inferring aggregate
+scaling from concentration, one should define a coherent population
+path, measure comparable variance and covariance components at its
+endpoints, estimate the aggregate elasticity directly, and test whether
+the component contributions reconstruct it. Concentration remains one
+source of exposure. The rate at which aggregation succeeds or fails is
+determined by how the entire variance--covariance structure evolves.
 
 % ------------------------------------------------------------------
 % Declarations
